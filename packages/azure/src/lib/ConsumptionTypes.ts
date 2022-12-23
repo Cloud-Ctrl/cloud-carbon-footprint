@@ -74,6 +74,7 @@ export enum STORAGE_USAGE_UNITS {
   GB_MONTH_1 = '1 GB/Month',
   GB_MONTH_10 = '10 GB/Month',
   GB_MONTH_100 = '100 GB/Month',
+  DAY_1 = '1 /Day',
   DAY_10 = '10 /Day',
   DAY_30 = '30 /Day',
   TB_MONTH_1 = '1 TB/Month',
@@ -90,6 +91,9 @@ export enum NETWORKING_USAGE_UNITS {
 export enum MEMORY_USAGE_UNITS {
   GB_SECONDS_50000 = '50000 GB Seconds',
   GB_HOURS_1000 = '1000 GB Hours',
+  GB_HOURS_1 = '1 GB Hours',
+  GB_HOUR_1 = '1 GB Hour',
+  GB_SECONDS_1 = '1 GB Second'
 }
 
 export const STORAGE_USAGE_TYPES: string[] = [

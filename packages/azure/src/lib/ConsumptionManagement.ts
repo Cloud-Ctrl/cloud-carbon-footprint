@@ -410,6 +410,7 @@ export default class ConsumptionManagementService {
       case STORAGE_USAGE_UNITS.GB_MONTH_1:
       case STORAGE_USAGE_UNITS.GB_MONTH_10:
       case STORAGE_USAGE_UNITS.GB_MONTH_100:
+      case STORAGE_USAGE_UNITS.DAY_1:
       case STORAGE_USAGE_UNITS.DAY_10:
       case STORAGE_USAGE_UNITS.DAY_30:
       case STORAGE_USAGE_UNITS.TB_MONTH_1:
@@ -430,6 +431,9 @@ export default class ConsumptionManagementService {
         )
       case MEMORY_USAGE_UNITS.GB_SECONDS_50000:
       case MEMORY_USAGE_UNITS.GB_HOURS_1000:
+      case MEMORY_USAGE_UNITS.GB_HOURS_1:
+      case MEMORY_USAGE_UNITS.GB_HOUR_1:
+      case MEMORY_USAGE_UNITS.GB_SECONDS_1:
         return this.getMemoryFootprintEstimate(
           consumptionDetailRow,
           powerUsageEffectiveness,
@@ -683,6 +687,12 @@ export default class ConsumptionManagementService {
     consumptionDetailRow: ConsumptionDetailRow,
   ): number {
     if (consumptionDetailRow.usageUnit === MEMORY_USAGE_UNITS.GB_SECONDS_50000)
+      return (consumptionDetailRow.usageAmount * 50000) / 3600
+    if (consumptionDetailRow.usageUnit === MEMORY_USAGE_UNITS.GB_HOURS_1000)
+      return consumptionDetailRow.usageAmount * 1000
+    if (consumptionDetailRow.usageUnit === MEMORY_USAGE_UNITS.GB_HOURS_1 || consumptionDetailRow.usageUnit === MEMORY_USAGE_UNITS.GB_HOUR_1)
+      return consumptionDetailRow.usageAmount
+    if (consumptionDetailRow.usageUnit === MEMORY_USAGE_UNITS.GB_SECONDS_1)
       return consumptionDetailRow.usageAmount / 3600
     return this.getGigabyteHoursFromInstanceTypeAndProcessors(
       consumptionDetailRow.usageType,
@@ -703,7 +713,7 @@ export default class ConsumptionManagementService {
     ) {
       return convertGigaBytesToTerabyteHours(
         SSD_MANAGED_DISKS_STORAGE_GB[
-          consumptionDetailRow.usageType.replace(/Disks?/, '').trim()
+          consumptionDetailRow.usageType.replace(/(LRS|GRS|ZRS)*\s*Disk(s)*(\sMount)*/i, '').trim()
         ],
       )
     }
@@ -714,7 +724,7 @@ export default class ConsumptionManagementService {
     ) {
       return convertGigaBytesToTerabyteHours(
         HDD_MANAGED_DISKS_STORAGE_GB[
-          consumptionDetailRow.usageType.replace(/Disks?/, '').trim()
+          consumptionDetailRow.usageType.replace(/(LRS|GRS|ZRS)*\s*Disk(s)*(\sMount)*/i, '').trim()
         ],
       )
     }

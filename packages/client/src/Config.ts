@@ -29,8 +29,8 @@ const groupBy = process.env.REACT_APP_GROUP_BY || 'day'
 
 const appConfig: ClientConfig = {
   CURRENT_PROVIDERS: [
-    { key: 'aws', name: 'AWS' },
-    { key: 'gcp', name: 'GCP' },
+    // { key: 'aws', name: 'AWS' },
+    // { key: 'gcp', name: 'GCP' },
     { key: 'azure', name: 'Azure' },
   ],
   PREVIOUS_YEAR_OF_USAGE: previousYearOfUsage,

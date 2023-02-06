@@ -322,6 +322,8 @@ export default class ConsumptionManagementService {
           'Retry Successful! Continuing grabbing estimates...',
         )
       }
+
+      this.consumptionManagementLogger.info(`Found ${usageRowDetails.length} rows`,);
       return usageRowDetails
     } catch (e) {
       const errorMsg =

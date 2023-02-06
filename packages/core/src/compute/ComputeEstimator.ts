@@ -9,6 +9,9 @@ import {
   CloudConstantsEmissionsFactors,
   CloudConstants,
 } from '../.'
+import {
+  Logger,
+} from '@cloud-carbon-footprint/common'
 import { ComputeUsage } from '.'
 
 //averageCPUUtilization expected to be in percentage
@@ -34,12 +37,14 @@ const ENERGY_ESTIMATION_FORMULA = (
 }
 
 export default class ComputeEstimator implements IFootprintEstimator {
+  private estimateLogger: Logger;
   estimate(
     data: ComputeUsage[],
     region: string,
     emissionsFactors: CloudConstantsEmissionsFactors,
     constants: CloudConstants,
   ): FootprintEstimate[] {
+    this.estimateLogger = new Logger('Estimate')
     return data.map((usage) => {
       const estimatedKilowattHours = ENERGY_ESTIMATION_FORMULA(
         usage.cpuUtilizationAverage,
@@ -50,6 +55,12 @@ export default class ComputeEstimator implements IFootprintEstimator {
         constants.replicationFactor,
         constants.averageWatts,
       )
+
+      if(region == 'Unknown')
+      {
+        this.estimateLogger.info(
+          `Using unknown emissions factor: ${(emissionsFactors[region] || emissionsFactors['Unknown'])}`,)
+      }
 
       const estimatedCO2Emissions = estimateCo2(
         estimatedKilowattHours,

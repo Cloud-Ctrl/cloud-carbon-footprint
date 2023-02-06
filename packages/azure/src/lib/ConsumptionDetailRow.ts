@@ -13,6 +13,9 @@ import {
 import { AZURE_REGIONS } from './AzureRegions'
 import { UsageDetailResult } from './ConsumptionTypes'
 import { LegacyUsageDetail, ModernUsageDetail } from '@azure/arm-consumption'
+import {
+  Logger,
+} from '@cloud-carbon-footprint/common'
 
 export default class ConsumptionDetailRow extends BillingDataRow {
   constructor(usageDetail: UsageDetailResult) {
@@ -44,11 +47,15 @@ export default class ConsumptionDetailRow extends BillingDataRow {
   }
 
   private getRegionFromResourceLocation(): string {
+    const logger = new Logger('Consumption')  
+
     for (const region of Object.values(AZURE_REGIONS)) {
       if (region.name === this.region || region.options.includes(this.region)) {
         return region.name
       }
     }
+
+    logger.warn(`Failed to find region for: ${this.region}`,)
     return AZURE_REGIONS.UNKNOWN.name
   }
 

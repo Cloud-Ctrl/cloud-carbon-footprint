@@ -113,7 +113,7 @@ export const STORAGE_USAGE_TYPES: string[] = [
   'Node',
   '10 DTUs',
   'S0 DTUs',
-  'S1 DTUs',
+  'S1 DTUs',  
   'S2 DTUs',
   'S3 DTUs',
   'eDTUs',
@@ -134,6 +134,11 @@ export const STORAGE_USAGE_TYPES: string[] = [
   'Basic User',
   'Standard Nodes',
   'Microsoft-hosted CI',
+  'Alerts Resource Monitored at 15 Minute Frequency',
+  'Alerts System Log Monitored at 5 Minute Frequency',
+  'Alerts System Log Monitored at 10 Minute Frequency',
+  'Alerts System Log Monitored at 15 Minute Frequency',
+  'Backup for PostgreSQL Protected Instances',
 ]
 
 export const NETWORKING_USAGE_TYPES: string[] = [

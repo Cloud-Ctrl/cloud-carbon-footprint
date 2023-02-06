@@ -104,6 +104,7 @@ export const STORAGE_USAGE_TYPES: string[] = [
   'LRS',
   'GRS',
   'GZRS',
+  'LRS Data Stored',
   'Data Retention',
   'Pay-as-you-go Data at Rest',
   'Standard Instances',
@@ -141,6 +142,8 @@ export const NETWORKING_USAGE_TYPES: string[] = [
   'Egress',
   'Geo-Replication v2 Data transfer',
   'Data Processed - Egress',
+  'Standard Data Transfer Out',
+  'Premium Data Transfer Out',
 ]
 
 export const MEMORY_USAGE_TYPES: string[] = [
